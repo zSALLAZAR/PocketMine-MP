@@ -21,32 +21,20 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\item;
+namespace pocketmine\block\inventory;
 
-use pocketmine\entity\Location;
-use pocketmine\entity\projectile\EnderPearl as EnderPearlEntity;
-use pocketmine\entity\projectile\Throwable;
-use pocketmine\player\Player;
+use pocketmine\inventory\SimpleInventory;
+use pocketmine\world\Position;
 
-class EnderPearl extends ProjectileItem{
+class CampfireInventory extends SimpleInventory implements BlockInventory{
+	use BlockInventoryTrait;
+
+	public function __construct(Position $holder){
+		$this->holder = $holder;
+		parent::__construct(4);
+	}
 
 	public function getMaxStackSize() : int{
-		return 16;
-	}
-
-	protected function createEntity(Location $location, Player $thrower) : Throwable{
-		return new EnderPearlEntity($location, $thrower);
-	}
-
-	public function getThrowForce() : float{
-		return 1.5;
-	}
-
-	public function getCooldownTicks() : int{
-		return 20;
-	}
-
-	public function getCooldownTag() : ?string{
-		return ItemCooldownTags::ENDER_PEARL;
+		return 1;
 	}
 }

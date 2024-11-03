@@ -21,32 +21,18 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\item;
+namespace pocketmine\block\utils;
 
-use pocketmine\entity\Location;
-use pocketmine\entity\projectile\EnderPearl as EnderPearlEntity;
-use pocketmine\entity\projectile\Throwable;
-use pocketmine\player\Player;
+/**
+ * Represents copper blocks that have oxidized and waxed variations.
+ */
+interface CopperMaterial{
 
-class EnderPearl extends ProjectileItem{
+	public function getOxidation() : CopperOxidation;
 
-	public function getMaxStackSize() : int{
-		return 16;
-	}
+	public function setOxidation(CopperOxidation $oxidation) : CopperMaterial;
 
-	protected function createEntity(Location $location, Player $thrower) : Throwable{
-		return new EnderPearlEntity($location, $thrower);
-	}
+	public function isWaxed() : bool;
 
-	public function getThrowForce() : float{
-		return 1.5;
-	}
-
-	public function getCooldownTicks() : int{
-		return 20;
-	}
-
-	public function getCooldownTag() : ?string{
-		return ItemCooldownTags::ENDER_PEARL;
-	}
+	public function setWaxed(bool $waxed) : CopperMaterial;
 }

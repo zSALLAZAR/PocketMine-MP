@@ -21,32 +21,28 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\item;
+namespace pocketmine\block;
 
-use pocketmine\entity\Location;
-use pocketmine\entity\projectile\EnderPearl as EnderPearlEntity;
-use pocketmine\entity\projectile\Throwable;
-use pocketmine\player\Player;
+use pocketmine\crafting\FurnaceType;
+use pocketmine\item\Item;
 
-class EnderPearl extends ProjectileItem{
+class SoulCampfire extends Campfire{
 
-	public function getMaxStackSize() : int{
-		return 16;
+	public function getLightLevel() : int{
+		return $this->lit ? 10 : 0;
 	}
 
-	protected function createEntity(Location $location, Player $thrower) : Throwable{
-		return new EnderPearlEntity($location, $thrower);
+	public function getDropsForCompatibleTool(Item $item) : array{
+		return [
+			VanillaBlocks::SOUL_SOIL()->asItem()
+		];
 	}
 
-	public function getThrowForce() : float{
-		return 1.5;
+	protected function getEntityCollisionDamage() : int{
+		return 2;
 	}
 
-	public function getCooldownTicks() : int{
-		return 20;
-	}
-
-	public function getCooldownTag() : ?string{
-		return ItemCooldownTags::ENDER_PEARL;
+	protected function getFurnaceType() : FurnaceType{
+		return FurnaceType::SOUL_CAMPFIRE;
 	}
 }
