@@ -157,9 +157,8 @@ final class BlockStateUpgrader{
 				if(is_string($remap->newName)){
 					$newName = $remap->newName;
 				}else{
-					//yes, overwriting $oldState here is intentional, although we probably don't actually need it anyway
-					//it shouldn't make any difference unless the flattened property appears in copiedState for some reason
-					[$newName, $oldState] = $this->applyPropertyFlattened($remap->newName, $oldName, $oldState);
+					//discard flatten modifications to state - the remap newState and copiedState will take care of it
+					[$newName, ] = $this->applyPropertyFlattened($remap->newName, $oldName, $oldState);
 				}
 
 				$newState = $remap->newState;
