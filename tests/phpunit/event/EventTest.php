@@ -24,6 +24,9 @@ declare(strict_types=1);
 namespace pocketmine\event;
 
 use PHPUnit\Framework\TestCase;
+use pocketmine\event\fixtures\TestChildEvent;
+use pocketmine\event\fixtures\TestGrandchildEvent;
+use pocketmine\event\fixtures\TestParentEvent;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginManager;
 use pocketmine\Server;

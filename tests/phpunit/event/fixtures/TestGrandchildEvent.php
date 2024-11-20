@@ -21,8 +21,8 @@
 
 declare(strict_types=1);
 
-namespace pocketmine\event;
+namespace pocketmine\event\fixtures;
 
-class TestParentEvent extends Event{
+class TestGrandchildEvent extends TestChildEvent{
 
 }
