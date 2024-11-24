@@ -63,8 +63,9 @@ class IceBomb extends Throwable{
 		$pos = $this->location;
 
 		$world->addSound($pos, new BlockBreakSound(VanillaBlocks::GLASS()));
+		$itemBreakParticle = new ItemBreakParticle(VanillaItems::ICE_BOMB());
 		for($i = 0; $i < 6; ++$i){
-			$world->addParticle($pos, new ItemBreakParticle(VanillaItems::ICE_BOMB()));
+			$world->addParticle($pos, $itemBreakParticle);
 		}
 	}
 
@@ -73,15 +74,16 @@ class IceBomb extends Throwable{
 
 		$pos = $blockHit->getPosition();
 		$world = $pos->getWorld();
-		$posX = (int) $pos->getX();
-		$posY = (int) $pos->getY();
-		$posZ = (int) $pos->getZ();
+		$posX = $pos->getFloorX();
+		$posY = $pos->getFloorY();
+		$posZ = $pos->getFloorZ();
 
+		$ice = VanillaBlocks::ICE();
 		for($x = $posX - 1; $x <= $posX + 1; $x++){
 			for($y = $posY - 1; $y <= $posY + 1; $y++){
 				for($z = $posZ - 1; $z <= $posZ + 1; $z++){
 					if($world->getBlockAt($x, $y, $z)->getTypeId() === BlockTypeIds::WATER){
-						$world->setBlockAt($x, $y, $z, VanillaBlocks::ICE());
+						$world->setBlockAt($x, $y, $z, $ice);
 					}
 				}
 			}
