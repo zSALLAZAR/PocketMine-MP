@@ -34,6 +34,7 @@ use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 use pocketmine\world\particle\ItemBreakParticle;
 use pocketmine\world\sound\BlockBreakSound;
+use pocketmine\world\sound\IceBombHitSound;
 use const PHP_INT_MAX;
 
 class IceBomb extends Throwable{
@@ -62,7 +63,7 @@ class IceBomb extends Throwable{
 		$world = $this->getWorld();
 		$pos = $this->location;
 
-		$world->addSound($pos, new BlockBreakSound(VanillaBlocks::GLASS()));
+		$world->addSound($pos, new IceBombHitSound());
 		$itemBreakParticle = new ItemBreakParticle(VanillaItems::ICE_BOMB());
 		for($i = 0; $i < 6; ++$i){
 			$world->addParticle($pos, $itemBreakParticle);
