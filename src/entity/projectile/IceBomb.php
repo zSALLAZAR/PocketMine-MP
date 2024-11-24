@@ -33,9 +33,7 @@ use pocketmine\math\RayTraceResult;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 use pocketmine\world\particle\ItemBreakParticle;
-use pocketmine\world\sound\BlockBreakSound;
 use pocketmine\world\sound\IceBombHitSound;
-use const PHP_INT_MAX;
 
 class IceBomb extends Throwable{
 	public static function getNetworkTypeId() : string{ return EntityIds::ICE_BOMB; }
@@ -48,12 +46,7 @@ class IceBomb extends Throwable{
 		if($block->getTypeId() === BlockTypeIds::WATER){
 			$pos = $block->getPosition();
 
-			$hit = AxisAlignedBB::one()->offset($pos->getX(), $pos->getY(), $pos->getZ())->calculateIntercept($start, $end);
-			if($hit === null){
-				return null;
-			}
-
-			return $hit->hitVector->distanceSquared($start) < PHP_INT_MAX ? $hit : null;
+			return AxisAlignedBB::one()->offset($pos->x, $pos->y, $pos->z)->calculateIntercept($start, $end);
 		}
 
 		return parent::calculateInterceptWithBlock($block, $start, $end);
